@@ -88,15 +88,20 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public Iterator<Item> iterator() {
+        Node current = first;
+        
+        
         return new Iterator<Item>() {
+            
             @Override
             public boolean hasNext() {
-                return false;
+                return current.next != null;
             }
 
             @Override
             public Item next() {
-                return null;
+                current = curent.next;
+                return current.data;
             }
         };
     }       // return an iterator over items in order from front to end
