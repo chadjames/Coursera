@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -144,6 +145,16 @@ public class DequeTest {
 
     @Test
     public void testIterator() throws Exception {
-
+        deque = new Deque<>();
+        deque.addFirst("String1");
+        deque.addFirst("String2");
+        deque.addFirst("String3");
+        Iterator<String> it = deque.iterator();
+        assertTrue(it.hasNext());
+        assertEquals(it.next(), "String3");
+        assertEquals(it.next(), "String2");
+        assertEquals(it.next(), "String1");
     }
+
+
 }

@@ -12,11 +12,11 @@ public class Deque<Item> implements Iterable<Item> {
 
     public Deque() {
         count = 0;
-    }                         // construct an empty deque
+    }
 
     public boolean isEmpty() {
-        return true;
-    }               // is the deque empty?
+        return size() == 0;
+    }
 
     public int size() {
         return count;
