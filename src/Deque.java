@@ -80,7 +80,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Node oldLast = last;
         last = oldLast.previous;
-        last.next = null;
+        if(size() > 1){last.next = null;}
         count--;
 
 
@@ -92,7 +92,7 @@ public class Deque<Item> implements Iterable<Item> {
         
         
         return new Iterator<Item>() {
-            
+            Node<Item> current = first;
             @Override
             public boolean hasNext() {
                 return current.next != null;
@@ -100,8 +100,9 @@ public class Deque<Item> implements Iterable<Item> {
 
             @Override
             public Item next() {
-                current = curent.next;
-                return current.data;
+                Item result = current.data;
+                current = current.next;
+                return result;
             }
         };
     }       // return an iterator over items in order from front to end
