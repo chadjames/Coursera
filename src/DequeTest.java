@@ -66,9 +66,11 @@ public class DequeTest {
         deque = new Deque<>();
         deque.addLast("String2");
         assertEquals(1,deque.size());
-        assertEquals("String2",deque.removeLast());
-
+        deque.removeLast();
+        deque.addLast("String3");
+        assertEquals("String3",deque.removeLast());
     }
+
     @Test
     public void testAddLastAfterFirst() throws Exception {
         deque = new Deque<>();
@@ -154,6 +156,62 @@ public class DequeTest {
         assertEquals(it.next(), "String3");
         assertEquals(it.next(), "String2");
         assertEquals(it.next(), "String1");
+    }
+
+    @Test
+    public void testAddLastFailResult() throws Exception {
+        deque = new Deque<>();
+        deque.isEmpty();
+        deque.addLast("String2");
+        deque.isEmpty();
+        deque.removeLast();
+        deque.addLast("String2");
+
+        assertEquals(1,deque.size());
+        assertEquals("String2",deque.removeLast());
+    }
+
+    @Test
+    public void testAddFirstFailResult() throws Exception {
+        deque = new Deque<>();
+        deque.isEmpty();
+        deque.addLast("1");
+        deque.removeFirst();
+        deque.addLast("3");
+        deque.isEmpty();
+        deque.addLast("5");
+        deque.isEmpty();
+        deque.removeFirst();
+        deque.removeFirst();
+
+        assertEquals(0,deque.size());
+    }
+
+    @Test
+    public void testMultipleAddFirst(){
+        Deque<Integer> deque = new Deque<Integer>();
+        for(int i = 1; i <= 1000; i++){
+            deque.addFirst(i);
+
+        }
+        int count = 0;
+        Iterator<Integer> it = deque.iterator();
+        while(it.hasNext()){
+            it.next();
+            count++;
+        }
+        assertTrue(count + " does not = 1000",  count == 1000);
+    }
+
+    @Test
+    public void testRandomCallsToAdd(){
+        Deque<Integer> deque = new Deque<Integer>();
+
+        deque.addLast(0);
+        deque.removeFirst();
+        deque.addLast(2);
+        assertTrue(2 == deque.removeFirst());
+
     }
 
 
