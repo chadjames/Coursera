@@ -213,6 +213,46 @@ public class DequeTest {
         assertTrue(2 == deque.removeFirst());
 
     }
+    @Test
+    public void testRandomCallsToAdd1() {
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.addLast(0);
+        deque.removeFirst();
+        deque.addLast(2);
+        deque.addLast(3);
+        int result = deque.removeFirst();
+        assertEquals( 2,result );
+    }
 
+    @Test
+    public void testRandomCallsToAdd2() {
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.addLast(0);
+        deque.removeFirst();
+        assertTrue(deque.isEmpty());
+        assertTrue(deque.isEmpty());
+        assertTrue(deque.isEmpty());
+        deque.addLast(5);
+        int result = deque.removeFirst();
+        assertEquals( 5,result );
+
+    }
+
+    @Test
+    public void testRandomCallsToAdd3() {
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.addLast(0);
+        deque.addFirst(1);
+        deque.removeFirst();
+        assertFalse(deque.isEmpty());
+        assertTrue(deque.size() == 1);
+        assertEquals(0,(int)deque.removeFirst());
+        assertTrue(deque.isEmpty());
+        assertTrue(deque.isEmpty());
+        deque.addLast(5);
+        int result = deque.removeFirst();
+        assertEquals( 5,result );
+
+    }
 
 }

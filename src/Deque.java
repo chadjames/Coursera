@@ -43,6 +43,9 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public void addLast(Item item) {
+        if (item == null) {
+            throw new NullPointerException();
+        }
         if (first == null) {
             addFirst(item);
         } else {
@@ -61,14 +64,18 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Node<Item> oldFirst = first;
         if (count == 1) {
-            first = last;
+            first = null;
+            last = null;
+
         } else {
             first = oldFirst.next;
             oldFirst.previous = null;
         }
+        Item data = oldFirst.data;
+        oldFirst = null;
         count--;
 
-        return oldFirst.data;
+        return data;
     }
 
     public Item removeLast() {

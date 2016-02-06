@@ -148,6 +148,75 @@ public class RandomizedQueueTest {
     }
 
     @Test
+    public void testDequeueMultiple() {
+        queue = new RandomizedQueue<Integer>();
+        for (int i = 0; i < 1000; i++) {
+
+            queue.enqueue(1);
+            queue.enqueue(2);
+            queue.enqueue(3);
+        }
+
+        int count1 = 0;
+        int count2 = 0;
+        int count3 = 0;
+        for (int i = 0; i < 3000; i++) {
+
+            switch ((Integer) queue.dequeue()) {
+                case 1:
+                    count1++;
+                    break;
+                case 2:
+                    count2++;
+                    break;
+                case 3:
+                    count3++;
+                    break;
+
+            }
+
+        }
+        assertTrue(true);
+
+    }
+
+    @Test
+    public void testIteratorMultiple() {
+        queue = new RandomizedQueue<Integer>();
+        for (int i = 0; i < 1000; i++) {
+
+            queue.enqueue(1);
+            queue.enqueue(2);
+            queue.enqueue(3);
+        }
+
+        int count1 = 0;
+        int count2 = 0;
+        int count3 = 0;
+        Iterator<Integer> it = queue.iterator();
+        for (int i = 0; i < 3000; i++) {
+
+            switch ((Integer) it.next()) {
+                case 1:
+                    count1++;
+                    break;
+                case 2:
+                    count2++;
+                    break;
+                case 3:
+                    count3++;
+                    break;
+
+            }
+
+        }
+        assertTrue(true);
+
+    }
+
+
+
+    @Test
     public void testShrink() {
         queue = new RandomizedQueue<Integer>();
         for (int i = 0; i < 2; i++) {
@@ -169,8 +238,16 @@ public class RandomizedQueueTest {
             thrown = true;
         }
         assertFalse(thrown);
-
-
+    }
+    @Test
+    public void testRandomOperations1(){
+        queue = new RandomizedQueue<Integer>();
+        assertTrue(queue.isEmpty());
+        assertEquals(0,queue.size());
+        queue.enqueue(21);
+        assertFalse(queue.isEmpty());
+        queue.dequeue();
+        assertTrue(queue.isEmpty());
 
     }
 }

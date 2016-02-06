@@ -16,7 +16,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public boolean isEmpty() {
-        return data.length == 0;
+        return count == 0;
     }
 
     public int size() {
@@ -24,6 +24,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public void enqueue(Item item) {
+        if (item == null) {
+            throw new NullPointerException();
+        }
         if (isEmpty()) {
             initialize();
         }
@@ -129,6 +132,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         for (int i = 0; i < source.length; i++) {
             clone[i] = source[i];
         }
+        source = null;
         return clone;
     }
 }
