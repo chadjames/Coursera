@@ -10,22 +10,36 @@ import java.util.stream.Collectors;
 public class FastCollinearPoints {
     private List<LineSegment> segments;
     public FastCollinearPoints(Point[] points) {
+
         segments = new ArrayList<>();
         List<Point> list = Arrays.asList(Arrays.copyOf(points, points.length));
 
         for (Point point : list) {
             Collections.sort(list, point.slopeOrder());
 
+            double previousSlope = 0;
+            double currentSlope;
+            boolean currentMatchFound;
+            List<Point> matchingSlopes = new ArrayList<>();
             for (int i = 1; i < list.size(); i++) {
-                double slopeTo = point.slopeTo(list.get(i));
-
-                List<Point> matchingSlopes = list.stream()
-                        .filter(p -> point.slopeTo(p) == slopeTo)
-                        .collect(Collectors.toList());
-
-                if (matchingSlopes.size() >= 3) {
+                currentSlope = point.slopeTo(list.get(i));
+                if(previousSlope == 0){
+                    previousSlope = currentSlope;
+                    matchingSlopes.add(list.get(i));
+                    continue;
+                }
+                if(currentSlope == previousSlope){
+                    currentMatchFound = true;
+                    matchingSlopes.add(list.get(i));
+                }else{
+                    currentMatchFound = false;
+                    previousSlope = currentSlope;
+                }
+                if(!currentMatchFound && matchingSlopes.size() >= 2 || i == list.size()-1 && matchingSlopes.size() >= 2 ){
                     matchingSlopes.add(point);
                     addSegment(matchingSlopes);
+                    matchingSlopes.clear();
+                    break;
                 }
 
             }

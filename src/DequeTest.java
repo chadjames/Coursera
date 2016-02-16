@@ -1,3 +1,5 @@
+
+
 import org.junit.Test;
 
 import java.util.Iterator;
@@ -6,9 +8,6 @@ import java.util.Objects;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by chad on 2/1/2016.
- */
 public class DequeTest {
     Deque<String> deque;
 

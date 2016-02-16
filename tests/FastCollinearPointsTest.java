@@ -1,13 +1,12 @@
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by chad on 2/14/2016.
  */
 public class FastCollinearPointsTest {
     @Test
     public void testStuff(){
+        Point p = new Point(1,1);
         Point[] points = new Point[6];
         points[0] = new Point(1,1);
         points[1] = new Point(2,2);
