@@ -22,12 +22,11 @@ public class Board {
                     incorrect++;
                 }
                 expected++;
-
             }
         }
 
         return incorrect;
-    }                  // number of blocks out of place
+    }
 
     public int manhattan() {
         int manhattan = 0;
@@ -62,15 +61,10 @@ public class Board {
         }
 
         return true;
-
     }
 
     public Iterable<Board> neighbors(){
         ArrayList<Board> neighbors = new ArrayList<>();
-        int zeroCoordinates[] = {-1,-1};
-        int[][] neighborCopy = Arrays.stream(board)
-                .map((int[] row) -> row.clone())
-                .toArray((int length) -> new int[length][]);
 
         int row = 0, col = 0;
         for(int i = 0; i < dimension; i++){
@@ -83,62 +77,22 @@ public class Board {
             }
         }
 
-        if(col == 0){
-            neighbors.add(getEasternNeighbor(row, col));
-            if(row == 0){
-                neighbors.add(getSouthernNeighbor(row, col));
-            }else if(row == dimension - 1){
-                neighbors.add(getNorthernNeighbor(row, col));
-            }else {
-                neighbors.add(getNorthernNeighbor(row, col));
-                neighbors.add(getSouthernNeighbor(row, col));
-            }
-            return neighbors;
-        }
-
-        if(col == dimension - 1){
-            neighbors.add(getWesternNeighbor(row, col));
-            if(row == 0){
-                neighbors.add(getSouthernNeighbor(row, col));
-            }else if(row == dimension - 1){
-                neighbors.add(getNorthernNeighbor(row, col));
-            }else {
-                neighbors.add(getNorthernNeighbor(row, col));
-                neighbors.add(getSouthernNeighbor(row, col));
-            }
-            return neighbors;
-        }
-
-        if(row == 0){
-            neighbors.add(getSouthernNeighbor(row, col));
-            if(col == 0){
-                neighbors.add(getEasternNeighbor(row, col));
-            }else if(col == dimension - 1){
-                neighbors.add(getWesternNeighbor(row, col));
-            }else {
-                neighbors.add(getEasternNeighbor(row, col));
-                neighbors.add(getWesternNeighbor(row, col));
-            }
-            return neighbors;
-        }
-        
-        if(row == dimension - 1){
+        if (row > 0) {
             neighbors.add(getNorthernNeighbor(row, col));
-            if(col == 0){
-                neighbors.add(getEasternNeighbor(row, col));
-            }else if(col == dimension - 1){
-                neighbors.add(getWesternNeighbor(row, col));
-            }else {
-                neighbors.add(getEasternNeighbor(row, col));
-                neighbors.add(getWesternNeighbor(row, col));
-            }
-            return neighbors;
         }
 
-        neighbors.add(getNorthernNeighbor(row, col));
-        neighbors.add(getSouthernNeighbor(row, col));
-        neighbors.add(getEasternNeighbor(row, col));
-        neighbors.add(getWesternNeighbor(row, col));
+        if (row < dimension - 1) {
+            neighbors.add(getSouthernNeighbor(row, col));
+        }
+
+        if (col > 0) {
+            neighbors.add(getWesternNeighbor(row, col));
+        }
+
+        if (col < dimension - 1) {
+            neighbors.add(getEasternNeighbor(row, col));
+        }
+
 
         return neighbors;
     }
@@ -152,7 +106,6 @@ public class Board {
             }
             result.append("\n");
         }
-
         return result.toString();
         }
 
