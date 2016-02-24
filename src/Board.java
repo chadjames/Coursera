@@ -1,11 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
-/**
- * Created by cjamec1 on 2/23/2016.
- */
 public class Board {
     private int dimension;
     private int[][] board;
@@ -48,11 +43,11 @@ public class Board {
             }
         }
         return manhattan;
-    }                 // sum of Manhattan distances between blocks and goal
+    }
 
     public boolean isGoal() {
         return manhattan() == 0;
-    }               // is this board the goal board?
+    }
 
     public Board twin() {return null;}                   // a board that is obtained by exchanging any pair of blocks
 
@@ -68,7 +63,7 @@ public class Board {
 
         return true;
 
-    }       // does this board equal y?
+    }
 
     public Iterable<Board> neighbors(){
         ArrayList<Board> neighbors = new ArrayList<>();
@@ -77,79 +72,124 @@ public class Board {
                 .map((int[] row) -> row.clone())
                 .toArray((int length) -> new int[length][]);
 
-
+        int row = 0, col = 0;
         for(int i = 0; i < dimension; i++){
             for(int j = 0; j < dimension; j++){
                 if(board[i][j] == 0){
-                    zeroCoordinates[0] = i;
-                    zeroCoordinates[1] = j;
+                    row = i;
+                    col = j;
                     break;
                 }
             }
         }
 
-
-
-        if(zeroCoordinates[1] == 0){
-            neighbors.add(getNorthernNeighbor(zeroCoordinates));
-            neighbors.add(getSouthernNeighbor(zeroCoordinates));
-            neighbors.add(getEasternNeighbor(zeroCoordinates));
-
-
-
-        }
-        if(zeroCoordinates[1] == dimension - 1){
-
-        }
-        if(zeroCoordinates[0] == 0){
-
-        }
-        if(zeroCoordinates[0] == dimension - 1){
-
+        if(col == 0){
+            neighbors.add(getEasternNeighbor(row, col));
+            if(row == 0){
+                neighbors.add(getSouthernNeighbor(row, col));
+            }else if(row == dimension - 1){
+                neighbors.add(getNorthernNeighbor(row, col));
+            }else {
+                neighbors.add(getNorthernNeighbor(row, col));
+                neighbors.add(getSouthernNeighbor(row, col));
+            }
+            return neighbors;
         }
 
+        if(col == dimension - 1){
+            neighbors.add(getWesternNeighbor(row, col));
+            if(row == 0){
+                neighbors.add(getSouthernNeighbor(row, col));
+            }else if(row == dimension - 1){
+                neighbors.add(getNorthernNeighbor(row, col));
+            }else {
+                neighbors.add(getNorthernNeighbor(row, col));
+                neighbors.add(getSouthernNeighbor(row, col));
+            }
+            return neighbors;
+        }
 
-        neighbors.add(getNorthernNeighbor(zeroCoordinates));
-        neighbors.add(getSouthernNeighbor(zeroCoordinates));
-        neighbors.add(getEasternNeighbor(zeroCoordinates));
-        neighbors.add(getWesternNeighbor(zeroCoordinates));
+        if(row == 0){
+            neighbors.add(getSouthernNeighbor(row, col));
+            if(col == 0){
+                neighbors.add(getEasternNeighbor(row, col));
+            }else if(col == dimension - 1){
+                neighbors.add(getWesternNeighbor(row, col));
+            }else {
+                neighbors.add(getEasternNeighbor(row, col));
+                neighbors.add(getWesternNeighbor(row, col));
+            }
+            return neighbors;
+        }
+        
+        if(row == dimension - 1){
+            neighbors.add(getNorthernNeighbor(row, col));
+            if(col == 0){
+                neighbors.add(getEasternNeighbor(row, col));
+            }else if(col == dimension - 1){
+                neighbors.add(getWesternNeighbor(row, col));
+            }else {
+                neighbors.add(getEasternNeighbor(row, col));
+                neighbors.add(getWesternNeighbor(row, col));
+            }
+            return neighbors;
+        }
 
+        neighbors.add(getNorthernNeighbor(row, col));
+        neighbors.add(getSouthernNeighbor(row, col));
+        neighbors.add(getEasternNeighbor(row, col));
+        neighbors.add(getWesternNeighbor(row, col));
 
         return neighbors;
-    }     // all neighboring boards
+    }
 
-    public String toString() {return null;}              // string representation of this board (in the output format specified below)
+    public String toString() {
+        StringBuffer result = new StringBuffer();
+        for(int[] list : board){
+            for(int element: list){
+                result.append(element);
+                result.append(" ");
+            }
+            result.append("\n");
+        }
+
+        return result.toString();
+        }
 
     public static void main(String[] args){} // unit tests (not graded)
 
-    private Board getNorthernNeighbor(int[] zeroCoordinates){
+    private Board getNorthernNeighbor(int row, int col){
         int[][] neighborCopy = copyBoard();
-        int north = neighborCopy[zeroCoordinates[0]][zeroCoordinates[1] + 1];
-        neighborCopy[zeroCoordinates[0]][zeroCoordinates[1]] = north;
-        neighborCopy[zeroCoordinates[0]][zeroCoordinates[1] + 1] = 0;
+        int north = neighborCopy[row - 1][col];
+        neighborCopy[row][col] = north;
+        neighborCopy[row - 1][col] = 0;
         return new Board(neighborCopy);
     }
-    private Board getSouthernNeighbor(int[] zeroCoordinates){
+
+    private Board getSouthernNeighbor(int row, int col){
         int[][] neighborCopy = copyBoard();
-        int south = neighborCopy[zeroCoordinates[0]][zeroCoordinates[1] - 1];
-        neighborCopy[zeroCoordinates[0]][zeroCoordinates[1]] = south;
-        neighborCopy[zeroCoordinates[0]][zeroCoordinates[1] - 1] = 0;
+        int south = neighborCopy[row + 1][col];
+        neighborCopy[row][col] = south;
+        neighborCopy[row + 1][col] = 0;
         return new Board(neighborCopy);
     }
-    private Board getWesternNeighbor(int[] zeroCoordinates){
+
+    private Board getWesternNeighbor(int row, int col){
         int[][] neighborCopy = copyBoard();
-        int west = neighborCopy[zeroCoordinates[0] + 1][zeroCoordinates[1]];
-        neighborCopy[zeroCoordinates[0]][zeroCoordinates[1]] = west;
-        neighborCopy[zeroCoordinates[0] + 1][zeroCoordinates[1]] = 0;
+        int west = neighborCopy[row][col - 1];
+        neighborCopy[row][col] = west;
+        neighborCopy[row][col - 1] = 0;
         return new Board(neighborCopy);
     }
-    private Board getEasternNeighbor(int[] zeroCoordinates){
+
+    private Board getEasternNeighbor(int row, int col){
         int[][] neighborCopy = copyBoard();
-        int east = neighborCopy[zeroCoordinates[0] - 1][zeroCoordinates[1]];
-        neighborCopy[zeroCoordinates[0]][zeroCoordinates[1]] = east;
-        neighborCopy[zeroCoordinates[0] - 1][zeroCoordinates[1]] = 0;
+        int east = neighborCopy[row][col + 1];
+        neighborCopy[row][col] = east;
+        neighborCopy[row][col + 1] = 0;
         return new Board(neighborCopy);
     }
+
     private int[][] copyBoard(){
         return Arrays.stream(board)
                 .map((int[] row) -> row.clone())

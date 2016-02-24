@@ -269,14 +269,190 @@ public class BoardTest {
     }
 
     @Test
+    public void testNeighborsMiddleCol0Row() throws Exception {
+        int[][] board = {
+                {2,0,3},
+                {1,4,6},
+                {5,7,8}
+        };
+
+        int[][] n1 = {
+                {0,2,3},
+                {1,4,6},
+                {5,7,8}
+        };
+        int[][] n2 = {
+                {2,3,0},
+                {1,4,6},
+                {5,7,8}
+        };
+        int[][] n3 = {
+                {2,4,3},
+                {1,0,6},
+                {5,7,8}
+        };
+
+
+        Board b = new Board(board);
+        Board b1 = new Board(n1);
+        Board b2 = new Board(n2);
+        Board b3 = new Board(n3);
+        ArrayList<Board> result = (ArrayList<Board>)b.neighbors();
+
+
+        assertEquals(3, result.size());
+        assertTrue(result.contains(b1));
+        assertTrue(result.contains(b2));
+        assertTrue(result.contains(b3));
+
+    }
+
+    @Test
+    public void testNeighborsEndCol0Row() throws Exception {
+        int[][] board = {
+                {2,3,0},
+                {1,4,6},
+                {5,7,8}
+        };
+
+        int[][] n1 = {
+                {2,0,3},
+                {1,4,6},
+                {5,7,8}
+        };
+        int[][] n2 = {
+                {2,3,6},
+                {1,4,0},
+                {5,7,8}
+        };
+
+
+
+        Board b = new Board(board);
+        Board b1 = new Board(n1);
+        Board b2 = new Board(n2);
+        ArrayList<Board> result = (ArrayList<Board>)b.neighbors();
+
+
+        assertEquals(2, result.size());
+        assertTrue(result.contains(b1));
+        assertTrue(result.contains(b2));
+
+    }
+ @Test
+    public void testNeighborsEndRow0Col() throws Exception {
+        int[][] board = {
+                {2,3,5},
+                {1,4,6},
+                {0,7,8}
+        };
+
+        int[][] n1 = {
+                {2,3,5},
+                {0,4,6},
+                {1,7,8}
+        };
+        int[][] n2 = {
+                {2,3,5},
+                {1,4,6},
+                {7,0,8}
+        };
+
+
+
+        Board b = new Board(board);
+        Board b1 = new Board(n1);
+        Board b2 = new Board(n2);
+        ArrayList<Board> result = (ArrayList<Board>)b.neighbors();
+
+
+        assertEquals(2, result.size());
+        assertTrue(result.contains(b1));
+        assertTrue(result.contains(b2));
+
+    }
+    @Test
+    public void testNeighborsEndRowEndCol() throws Exception {
+        int[][] board = {
+                {2,3,5},
+                {1,4,6},
+                {8,7,0}
+        };
+
+        int[][] n1 = {
+                {2,3,5},
+                {1,4,6},
+                {8,0,7}
+        };
+        int[][] n2 = {
+                {2,3,5},
+                {1,4,0},
+                {8,7,6}
+        };
+
+
+
+        Board b = new Board(board);
+        Board b1 = new Board(n1);
+        Board b2 = new Board(n2);
+        ArrayList<Board> result = (ArrayList<Board>)b.neighbors();
+
+
+        assertEquals(2, result.size());
+        assertTrue(result.contains(b1));
+        assertTrue(result.contains(b2));
+
+    }@Test
+    public void testNeighborsEndRowMiddleCol() throws Exception {
+        int[][] board = {
+                {2,3,5},
+                {1,4,6},
+                {8,0,7}
+        };
+
+        int[][] n1 = {
+                {2,3,5},
+                {1,4,6},
+                {8,7,0}
+        };
+        int[][] n2 = {
+                {2,3,5},
+                {1,0,6},
+                {8,4,7}
+        };
+        int[][] n3 = {
+                {2,3,5},
+                {1,4,6},
+                {0,8,7}
+        };
+
+
+
+        Board b = new Board(board);
+        Board b1 = new Board(n1);
+        Board b2 = new Board(n2);
+        Board b3 = new Board(n3);
+        ArrayList<Board> result = (ArrayList<Board>)b.neighbors();
+
+
+        assertEquals(3, result.size());
+        assertTrue(result.contains(b1));
+        assertTrue(result.contains(b2));
+        assertTrue(result.contains(b3));
+
+    }
+
+    @Test
     public void testToString() throws Exception {
         int[][] board = {
                 {1,2,3},
                 {4,0,6},
                 {5,7,8}
         };
-        int x = Arrays.asList(board).indexOf(5);
-        System.out.print('t');
+        Board b = new Board(board);
+        System.out.println(b.toString());
+
+
 
     }
 }
