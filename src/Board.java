@@ -6,7 +6,7 @@ public class Board {
     private int[][] board;
     public Board(int[][] blocks)  {
         dimension = blocks.length;
-        board = blocks;
+        board = copy2dAray(blocks);
     }
 
     public int dimension()  {return dimension;}
@@ -64,14 +64,20 @@ public class Board {
     }
 
     public boolean equals(Object y) {
-        Board that = (Board)y;
-        for(int i = 0; i < dimension; i++){
-            for(int j = 0; j < dimension; j++){
-                if(board[i][j] != that.board[i][j]){
-                    return false;
+        Board that;
+        try{
+            that = (Board)y;
+        }catch (Exception e){
+            return false;
+        }
+        if(that == null || this.board.length != that.board.length) {return false;}
+            for (int i = 0; i < dimension; i++) {
+                for (int j = 0; j < dimension; j++) {
+                    if (this.board[i][j] != that.board[i][j]) {
+                        return  false;
+                    }
                 }
             }
-        }
 
         return true;
     }
@@ -86,19 +92,15 @@ public class Board {
         if (row > 0) {
             neighbors.add(getNorthernNeighbor(row, col));
         }
-
         if (row < dimension - 1) {
             neighbors.add(getSouthernNeighbor(row, col));
         }
-
         if (col > 0) {
             neighbors.add(getWesternNeighbor(row, col));
         }
-
         if (col < dimension - 1) {
             neighbors.add(getEasternNeighbor(row, col));
         }
-
 
         return neighbors;
     }
@@ -153,6 +155,12 @@ public class Board {
 
     private int[][] copyBoard(){
         return Arrays.stream(board)
+                .map((int[] row) -> row.clone())
+                .toArray((int length) -> new int[length][]);
+    }
+
+    private int[][] copy2dAray(int[][] toCopy){
+        return Arrays.stream(toCopy)
                 .map((int[] row) -> row.clone())
                 .toArray((int length) -> new int[length][]);
     }

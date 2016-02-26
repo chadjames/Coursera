@@ -1,10 +1,5 @@
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-/**
- * Created by cjamec1 on 2/24/2016.
- */
 public class SolverTest {
     @Test
     public void testStuff(){
@@ -12,7 +7,6 @@ public class SolverTest {
 
                 {1,0},
                 {2,3}
-
 
         };
         Board b = new Board(board);

@@ -1,23 +1,19 @@
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by cjamec1 on 2/23/2016.
- */
 public class BoardTest {
 
     @Test
-    public void testDimension() throws Exception {
+    public void testDimension()  {
         Board b = new Board(new int[5][5]);
         assert 5 == b.dimension();
     }
 
     @Test
-    public void testHammingReturns0ForSolvedBoard() throws Exception {
+    public void testHammingReturns0ForSolvedBoard()  {
         int[][] board = new int[][]{
             {1,2,3},
             {4,5,6},
@@ -29,7 +25,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testHammingReturns1WhenCorrectRow() throws Exception {
+    public void testHammingReturns1WhenCorrectRow()  {
         int[][] board = {
             {1,2,3},
             {4,5,6},
@@ -41,7 +37,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testHammingReturns1WhenInCorrectRow() throws Exception {
+    public void testHammingReturns1WhenInCorrectRow()  {
         int[][] board = {
             {1,2,3},
             {4,5,8},
@@ -53,7 +49,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testHammingReturns1WhenInCorrectColumn() throws Exception {
+    public void testHammingReturns1WhenInCorrectColumn()  {
         int[][] board = {
             {1,2,3},
             {4,8,5},
@@ -65,7 +61,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testHammingReturns1WhenAllIncorrect() throws Exception {
+    public void testHammingReturns1WhenAllIncorrect()  {
         int[][] board = {
             {3,1,2},
             {5,6,4},
@@ -77,7 +73,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testManhattanForSolvedBoard() throws Exception {
+    public void testManhattanForSolvedBoard()  {
         int[][] board = {
                 {1,2,3},
                 {4,5,6},
@@ -89,7 +85,7 @@ public class BoardTest {
 
     }
     @Test
-    public void testManhattanFor1MoveSameRow() throws Exception {
+    public void testManhattanFor1MoveSameRow()  {
         int[][] board = {
                 {1,2,3},
                 {4,5,6},
@@ -101,7 +97,7 @@ public class BoardTest {
 
     }
     @Test
-    public void testManhattanFor1MoveDifferentRow() throws Exception {
+    public void testManhattanFor1MoveDifferentRow()  {
         int[][] board = {
                 {1,2,3},
                 {4,8,6},
@@ -113,7 +109,7 @@ public class BoardTest {
 
     }
     @Test
-    public void testManhattanFor1MoveMultipleRow() throws Exception {
+    public void testManhattanFor1MoveMultipleRow()  {
         int[][] board = {
                 {1,8,3},
                 {4,0,6},
@@ -125,7 +121,7 @@ public class BoardTest {
 
     }
     @Test
-    public void testManhattanForMultipleRowsAndColumns() throws Exception {
+    public void testManhattanForMultipleRowsAndColumns()  {
         int[][] board = {
                 {4,8,7},
                 {1,0,6},
@@ -138,7 +134,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testIsGoalTrue() throws Exception {
+    public void testIsGoalTrue()  {
         int[][] board = {
                 {1,2,3},
                 {4,5,6},
@@ -149,7 +145,7 @@ public class BoardTest {
         assertTrue(b.isGoal());
     }
     @Test
-    public void testIsGoalFalse() throws Exception {
+    public void testIsGoalFalse()  {
         int[][] board = {
                 {1,2,3},
                 {4,5,6},
@@ -161,7 +157,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testTwin() throws Exception {
+    public void testTwin()  {
         int[][] board1= {
                 {1,2,3},
                 {4,0,6},
@@ -179,7 +175,7 @@ public class BoardTest {
 
     }
     @Test
-    public void testTwinPerimeter() throws Exception {
+    public void testTwinPerimeter()  {
         int[][] board1= {
                 {0,2,3},
                 {4,1,6},
@@ -197,7 +193,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testEquals() throws Exception {
+    public void testEquals()  {
         int[][] board1= {
                 {1,2,3},
                 {4,0,6},
@@ -216,9 +212,24 @@ public class BoardTest {
         assertTrue(b1.equals(b2));
 
     }
+    @Test
+    public void testEqualsNull()  {
+        int[][] board1= {
+                {1,2,3},
+                {4,0,6},
+                {5,7,8}
+        };
+
+
+
+        Board b1 = new Board(board1);
+
+        assertFalse(b1.equals(null));
+
+    }
 
     @Test
-    public void testNeighborsAll() throws Exception {
+    public void testNeighborsAll()  {
         int[][] board = {
                 {1,2,3},
                 {4,0,6},
@@ -261,7 +272,7 @@ public class BoardTest {
 
     }
     @Test
-    public void testNeighbors0ColMiddleRow() throws Exception {
+    public void testNeighbors0ColMiddleRow()  {
         int[][] board = {
                 {1,2,3},
                 {0,4,6},
@@ -300,7 +311,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testNeighborsMiddleCol0Row() throws Exception {
+    public void testNeighborsMiddleCol0Row()  {
         int[][] board = {
                 {2,0,3},
                 {1,4,6},
@@ -339,7 +350,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testNeighborsEndCol0Row() throws Exception {
+    public void testNeighborsEndCol0Row()  {
         int[][] board = {
                 {2,3,0},
                 {1,4,6},
@@ -371,7 +382,7 @@ public class BoardTest {
 
     }
  @Test
-    public void testNeighborsEndRow0Col() throws Exception {
+    public void testNeighborsEndRow0Col()  {
         int[][] board = {
                 {2,3,5},
                 {1,4,6},
@@ -403,7 +414,7 @@ public class BoardTest {
 
     }
     @Test
-    public void testNeighborsEndRowEndCol() throws Exception {
+    public void testNeighborsEndRowEndCol()  {
         int[][] board = {
                 {2,3,5},
                 {1,4,6},
@@ -435,7 +446,7 @@ public class BoardTest {
 
     }
     @Test
-    public void testNeighborsEndRowMiddleCol() throws Exception {
+    public void testNeighborsEndRowMiddleCol()  {
         int[][] board = {
                 {2,3,5},
                 {1,4,6},
@@ -476,7 +487,7 @@ public class BoardTest {
 
 
     @Test
-    public void testToString() throws Exception {
+    public void testToString()  {
         int[][] board = {
                 {1,2,3},
                 {4,0,6},
@@ -484,8 +495,5 @@ public class BoardTest {
         };
         Board b = new Board(board);
         System.out.println(b.toString());
-
-
-
     }
 }
