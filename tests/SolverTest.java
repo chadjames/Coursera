@@ -9,9 +9,11 @@ public class SolverTest {
     @Test
     public void testStuff(){
         int[][] board = {
-                {0,1,3},
-                {4,2,5},
-                {7,8,6}
+
+                {1,0},
+                {2,3}
+
+
         };
         Board b = new Board(board);
 
@@ -20,5 +22,7 @@ public class SolverTest {
             System.out.println(result.toString());
         }
     }
+
+
 
 }

@@ -162,7 +162,38 @@ public class BoardTest {
 
     @Test
     public void testTwin() throws Exception {
+        int[][] board1= {
+                {1,2,3},
+                {4,0,6},
+                {5,7,8}
+        };
+        int[][] twinArray= {
+                {2,1,3},
+                {4,0,6},
+                {5,7,8}
+        };
+        Board b1 = new Board(board1);
+        Board twin = b1.twin();
+        Board expectedTwin = new Board(twinArray);
+        assert twin.equals(expectedTwin);
 
+    }
+    @Test
+    public void testTwinPerimeter() throws Exception {
+        int[][] board1= {
+                {0,2,3},
+                {4,1,6},
+                {5,7,8}
+        };
+        int[][] twinArray= {
+                {0,2,3},
+                {4,1,6},
+                {7,5,8}
+        };
+        Board b1 = new Board(board1);
+        Board twin = b1.twin();
+        Board expectedTwin = new Board(twinArray);
+        assert twin.equals(expectedTwin);
     }
 
     @Test
@@ -402,7 +433,8 @@ public class BoardTest {
         assertTrue(result.contains(b1));
         assertTrue(result.contains(b2));
 
-    }@Test
+    }
+    @Test
     public void testNeighborsEndRowMiddleCol() throws Exception {
         int[][] board = {
                 {2,3,5},
@@ -441,6 +473,7 @@ public class BoardTest {
         assertTrue(result.contains(b3));
 
     }
+
 
     @Test
     public void testToString() throws Exception {

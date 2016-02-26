@@ -7,10 +7,9 @@ public class Board {
     public Board(int[][] blocks)  {
         dimension = blocks.length;
         board = blocks;
-
     }
 
-    public int dimension()  {return dimension;}               // board dimension N
+    public int dimension()  {return dimension;}
 
     public int hamming() {
         int incorrect = 0;
@@ -48,7 +47,21 @@ public class Board {
         return manhattan() == 0;
     }
 
-    public Board twin() {return null;}                   // a board that is obtained by exchanging any pair of blocks
+    public Board twin() {
+        int[] zeroCoordinates = getZeroCoordinates();
+        int row = zeroCoordinates[0];
+        int[][] copy = copyBoard();
+        int[][] swap =  (row == 0) ? swap(dimension -1, 0, dimension -1, 1, copy) : swap(0, 0, 0, 1, copy);
+
+        return new Board(swap);
+    }
+
+    private int[][] swap(int x1, int y1, int x2, int y2, int[][] original){
+        int temp = original[x1][y1];
+        original[x1][y1] = original[x2][y2];
+        original[x2][y2] = temp;
+        return original;
+    }
 
     public boolean equals(Object y) {
         Board that = (Board)y;
@@ -66,16 +79,9 @@ public class Board {
     public Iterable<Board> neighbors(){
         ArrayList<Board> neighbors = new ArrayList<>();
 
-        int row = 0, col = 0;
-        for(int i = 0; i < dimension; i++){
-            for(int j = 0; j < dimension; j++){
-                if(board[i][j] == 0){
-                    row = i;
-                    col = j;
-                    break;
-                }
-            }
-        }
+        int[] zeroCoordinates = getZeroCoordinates();
+        int row = zeroCoordinates[0];
+        int col = zeroCoordinates[1];
 
         if (row > 0) {
             neighbors.add(getNorthernNeighbor(row, col));
@@ -99,8 +105,10 @@ public class Board {
 
     public String toString() {
         StringBuffer result = new StringBuffer();
+        result.append(dimension).append("\n");
         for(int[] list : board){
             for(int element: list){
+                result.append(" ");
                 result.append(element);
                 result.append(" ");
             }
@@ -147,5 +155,19 @@ public class Board {
         return Arrays.stream(board)
                 .map((int[] row) -> row.clone())
                 .toArray((int length) -> new int[length][]);
+    }
+
+    private int[] getZeroCoordinates(){
+        int[] coordinates = new int[2];
+        for(int i = 0; i < dimension; i++){
+            for(int j = 0; j < dimension; j++){
+                if(board[i][j] == 0){
+                    coordinates[0] = i;
+                    coordinates[1] = j;
+                    break;
+                }
+            }
+        }
+        return coordinates;
     }
 }
